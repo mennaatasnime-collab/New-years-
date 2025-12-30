@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>عيد السنة مع Hello Kitty 💖</title>
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  height:100vh;
+  background:linear-gradient(180deg,#ffd1e8,#fff);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-family:Arial,sans-serif;
+  overflow:hidden;
+  direction:rtl;
+}
+
+.hidden{display:none}
+.center{text-align:center}
+
+.timer-box{
+  width:220px;
+  height:220px;
+  border-radius:50%;
+  background:conic-gradient(#ff69b4 0deg,#ff69b4 360deg);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 0 25px #ff9ccc;
+  animation:pulse 1s infinite;
+}
+.timer{
+  width:180px;
+  height:180px;
+  background:#fff;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:64px;
+  color:#ff69b4;
+  font-weight:bold;
+}
+@keyframes pulse{
+  0%{transform:scale(1)}
+  50%{transform:scale(1.05)}
+  100%{transform:scale(1)}
+}
+
+.kitty{
+  width:130px;
+  animation:kittyMove 2s infinite ease-in-out;
+}
+@keyframes kittyMove{
+  0%{transform:translateY(0)}
+  50%{transform:translateY(-10px)}
+  100%{transform:translateY(0)}
+}
+
+button{
+  padding:12px 30px;
+  border:none;
+  border-radius:30px;
+  font-size:18px;
+  cursor:pointer;
+  margin:10px;
+  background:#ff69b4;
+  color:white;
+  box-shadow:0 5px 10px rgba(0,0,0,.2);
+}
+button:hover{background:#ff4fa3}
+
+h1,h2,p{color:#d63384}
+
+.float{
+  position:absolute;
+  animation:float 7s linear infinite;
+  opacity:.8;
+}
+@keyframes float{
+  from{transform:translateY(100vh)}
+  to{transform:translateY(-120vh)}
+}
+</style>
+</head>
+<body>
+
+<!-- عناصر خلفية -->
+<div class="float" style="left:10%">🌸</div>
+<div class="float" style="left:30%">🎈</div>
+<div class="float" style="left:50%">🌹</div>
+<div class="float" style="left:70%">💗</div>
+
+<!-- الموسيقى مدموجة Base64 -->
+<audio id="bgMusic" loop>
+  <source src="data:audio/mpeg;base64,//UklGRiQAAABXQVZFZm10IBAAAAABAAEAESsAACJWAAACABAAZGF0YYQAAAD/...rest_of_base64..." type="audio/mpeg">
+</audio>
+
+<!-- العدّاد -->
+<div id="timerSection" class="center">
+  <div class="timer-box">
+    <div id="timer" class="timer">10</div>
+  </div>
+</div>
+
+<!-- السؤال الأول -->
+<div id="q1" class="center hidden">
+  <img class="kitty" src="https://i.imgur.com/0XKzn8K.png">
+  <h1>هل تحبّني؟</h1>
+  <button onclick="yes1()">نعم</button>
+  <button onclick="finalMsg()">لا</button>
+</div>
+
+<!-- السؤال الثاني -->
+<div id="q2" class="center hidden">
+  <img class="kitty" src="https://i.imgur.com/0XKzn8K.png">
+  <p>
+    وأنا أيضًا أحبّك كثيرًا يا قلبي ويا عمري ويا كلّ شيء…<br>
+    هل تحبّني كما أحبّك؟
+  </p>
+  <button onclick="finalMsg()">نعم</button>
+  <button onclick="finalMsg()">لا</button>
+</div>
+
+<!-- الرسالة النهائية -->
+<div id="final" class="center hidden">
+  <img class="kitty" src="https://i.imgur.com/0XKzn8K.png">
+  <h2>
+    عادي، كنت أعلم أصلًا أنّك تحبّني،<br>
+    من دون أن أسأل حتى.
+  </h2>
+  <p>
+    كلّ عام وأنت الحبّ الذي يملأ قلبي،<br>
+    وكلّ عام وأنت الأمان والفرح.<br>
+    أسأل الله أن تكون هذه السنة بداية خير<br>
+    وسعادة لا تنتهي لك يا حبيبي.
+  </p>
+  <h2>شكرًا 💖</h2>
+</div>
+
+<script>
+/* تشغيل الموسيقى عند أول لمسة */
+document.addEventListener("click",()=>{
+  document.getElementById("bgMusic").play();
+},{once:true});
+
+/* العدّاد */
+let count=10;
+const timer=document.getElementById("timer");
+const interval=setInterval(()=>{
+  count--;
+  timer.textContent=count;
+  if(count===0){
+    clearInterval(interval);
+    document.getElementById("timerSection").classList.add("hidden");
+    document.getElementById("q1").classList.remove("hidden");
+  }
+},1000);
+
+function yes1(){
+  document.getElementById("q1").classList.add("hidden");
+  document.getElementById("q2").classList.remove("hidden");
+}
+function finalMsg(){
+  document.getElementById("q1").classList.add("hidden");
+  document.getElementById("q2").classList.add("hidden");
+  document.getElementById("final").classList.remove("hidden");
+}
+</script>
+
+</body>
+</html>
